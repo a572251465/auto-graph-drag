@@ -15,7 +15,9 @@ module.exports = {
   rules: {
     'no-console': 'off',
     'no-debugger': 'off',
-    'import/extensions': 'off'
+    'import/extensions': 'off',
+    '@typescript-eslint/no-var-requires': 'off',
+    'import/no-unresolved': 'off'
   },
   settings: {
     'import/resolver': {

@@ -1,0 +1,37 @@
+.container {
+  &-left {
+    background: yellow;
+    position: fixed;
+    left: 10px;
+    width: 200px;
+    top: 10px;
+    bottom: 10px;
+  }
+
+  &-right {
+    background: blue;
+    position: fixed;
+    right: 10px;
+    top: 10px;
+    bottom: 10px;
+    width: 200px;
+  }
+
+  &-top {
+    background: green;
+    position: fixed;
+    top: 10px;
+    left: 220px;
+    right: 220px;
+    height: 80px;
+  }
+
+  &-editor {
+    background: black;
+    position: fixed;
+    top: 100px;
+    left: 220px;
+    right: 220px;
+    bottom: 10px;
+  }
+}
