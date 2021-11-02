@@ -3,7 +3,7 @@
     background: yellow;
     position: fixed;
     left: 10px;
-    width: 200px;
+    width: 270px;
     top: 10px;
     bottom: 10px;
   }
@@ -14,24 +14,24 @@
     right: 10px;
     top: 10px;
     bottom: 10px;
-    width: 200px;
+    width: 270px;
   }
 
   &-top {
     background: green;
     position: fixed;
     top: 10px;
-    left: 220px;
-    right: 220px;
+    left: 290px;
+    right: 290px;
     height: 80px;
   }
 
   &-editor {
-    background: black;
+    background: #eeeeee;
     position: fixed;
     top: 100px;
-    left: 220px;
-    right: 220px;
+    left: 290px;
+    right: 290px;
     bottom: 10px;
   }
 }

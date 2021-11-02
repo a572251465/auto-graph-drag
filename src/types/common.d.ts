@@ -1,13 +1,23 @@
+export interface IBlockItem {
+  width?: number
+  height?: number
+  left: number
+  top: number
+  key: string
+  zIndex: number
+}
+
 export interface IDataConfig {
   container: {
-    width: string
-    height: string
+    width: number
+    height: number
   }
-  blocks: {
-    width: string
-    height: string
-    left: string
-    top: string
-    type: string
-  }[]
+  blocks: IBlockItem[]
+}
+
+export interface IComponentInfo {
+  key: string
+  label: string
+  preview: () => JSX.Element | string
+  render: () => JSX.Element | string
 }
