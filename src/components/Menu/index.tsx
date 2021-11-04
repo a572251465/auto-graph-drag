@@ -1,4 +1,5 @@
-import { defineComponent } from 'vue'
+import { computed, defineComponent, ref } from 'vue'
+import { ElDrawer } from 'element-plus'
 
 import './index.scss'
 
@@ -12,22 +13,25 @@ export default defineComponent({
   },
   emits: ['update:modelValue'],
   setup(props, ctx) {
-    // 关闭菜单页面
-    const closeMenuPage = function closeMenuPage() {
-      ctx.emit('update:modelValue', false)
-    }
+    // 当前页面的显示/隐藏
+    const currentPageShowFlag = computed<boolean>({
+      get() {
+        return props.modelValue
+      },
+      set(newVal) {
+        ctx.emit('update:modelValue', newVal)
+      }
+    })
 
     return () => (
       <div class="menu">
-        <div
-          onClick={closeMenuPage}
-          class={props.modelValue ? 'startMask menu-mask' : ''}
+        <ElDrawer
+          direction="ttb"
+          size={80}
+          show-close={false}
+          modelValue={currentPageShowFlag.value}
+          v-model={currentPageShowFlag.value}
         />
-        <div
-          class={props.modelValue ? 'startShow menu-content' : 'menu-content'}
-        >
-          11
-        </div>
       </div>
     )
   }
