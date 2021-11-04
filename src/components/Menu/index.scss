@@ -1,0 +1,56 @@
+$height: 60px;
+$time: 0.3s;
+
+.menu {
+  @keyframes hideOrShow {
+    from {
+      height: 0;
+      opacity: 0;
+    }
+
+    to {
+      height: $height;
+      opacity: 1;
+    }
+  }
+
+  @keyframes maskAnimation {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 0.8;
+    }
+  }
+
+  .startShow {
+    animation: hideOrShow $time ease-in-out forwards;
+  }
+  .startMask {
+    animation: maskAnimation $time ease-in-out forwards;
+  }
+
+  &-mask {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: black;
+    opacity: 0.8;
+    z-index: 10;
+    cursor: pointer;
+  }
+
+  &-content {
+    position: fixed;
+    top: 0;
+    opacity: 0;
+    left: 0;
+    width: 100%;
+    height: 0;
+    z-index: 100;
+    background: #ffffff;
+    box-shadow: 3px 3px 2px #ccc;
+  }
+}

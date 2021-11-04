@@ -1,4 +1,4 @@
-import {computed, defineComponent, onMounted, PropType, ref} from 'vue'
+import { computed, defineComponent, onMounted, PropType, ref } from 'vue'
 import { IBlockItem, IComponentInfo } from '@/types/common'
 import { componentMap } from '@/hooks/registerComponent'
 
@@ -13,7 +13,6 @@ export default defineComponent({
     }
   },
   setup(props) {
-
     const blockRef = ref<HTMLDivElement | null>(null)
 
     // 设置样式的计算属性
@@ -37,15 +36,15 @@ export default defineComponent({
       if (props.block.isCenter) return
 
       if (blockRef.value) {
-        const {offsetWidth, offsetHeight} = blockRef.value
-        blockRef.value.style.left = `${props.block.left - (+offsetWidth / 2)}px`
-        blockRef.value.style.top = `${props.block.top - (+offsetHeight / 2)}px`
+        const { offsetWidth, offsetHeight } = blockRef.value
+        blockRef.value.style.left = `${props.block.left - +offsetWidth / 2}px`
+        blockRef.value.style.top = `${props.block.top - +offsetHeight / 2}px`
         // 注：重新设定位置后，也可以不设置状态，因为组件不会重复渲染
       }
     })
 
     return () => (
-      <div class="block-item" style={computedStyles.value} ref = {blockRef}>
+      <div class="block-item" style={computedStyles.value} ref={blockRef}>
         {render}
       </div>
     )

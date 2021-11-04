@@ -1,9 +1,10 @@
-import { computed, defineComponent, PropType } from 'vue'
+import {computed, defineComponent, PropType, ref, watch} from 'vue'
 import deepcopy from 'deepcopy'
 import { IComponentInfo, IDataConfig } from '@/types/common'
 import { componentList } from '@/hooks/registerComponent'
 
 import './index.scss'
+import menuImg from '@/assets/images/menuImg.png'
 import dragMenu from '@/hooks/dragMenu'
 
 export default defineComponent({
@@ -12,12 +13,29 @@ export default defineComponent({
     modelValue: {
       type: Object as PropType<IDataConfig>,
       required: true
+    },
+    currentPageShowFlag: {
+      type: Boolean,
+      default: false
     }
   },
-  emits: ['update:modelValue'],
+  emits: ['update:modelValue', 'show-menu-page'],
   setup(props, ctx) {
     // 获取组件列表
     const compList: IComponentInfo[] = componentList
+    // 菜单页面的显示
+    const menuPageShowFlag = ref<boolean>(false)
+
+    watch(() => props.currentPageShowFlag, (val) => {
+      if (val) return
+
+      menuPageShowFlag.value = val
+    })
+
+    // 点击显示菜单页面
+    const menuPageHandle = () => {
+      ctx.emit('show-menu-page', (menuPageShowFlag.value = !menuPageShowFlag.value))
+    }
 
     // 监听数据变化
     const data = computed<IDataConfig>({
@@ -34,6 +52,9 @@ export default defineComponent({
 
     return () => (
       <div class="left">
+        <div class="left-flags">
+          <img src={menuImg} alt="点击设置" onClick = {menuPageHandle} />
+        </div>
         <ul class="left-ul">
           {compList.map((item) => (
             <li

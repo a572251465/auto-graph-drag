@@ -1,4 +1,12 @@
 .left {
+  &-flags {
+    & > img {
+      width: 25px;
+      cursor: pointer;
+      margin-bottom: 10px;
+    }
+  }
+
   &-ul {
     width: 100%;
     height: 130px;
