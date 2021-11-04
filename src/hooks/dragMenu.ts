@@ -41,6 +41,7 @@ const dragMenu = function (data: WritableComputedRef<IDataConfig>) {
         {
           key: currentEditorComponent?.key,
           left,
+          isCenter: false,
           top,
           zIndex: 1
         }

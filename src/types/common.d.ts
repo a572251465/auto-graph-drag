@@ -4,6 +4,7 @@ export interface IBlockItem {
   left: number
   top: number
   key: string
+  isCenter: boolean
   zIndex: number
 }
 

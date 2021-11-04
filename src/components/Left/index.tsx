@@ -1,10 +1,10 @@
-import {computed, defineComponent, PropType} from 'vue'
-import deepcopy from "deepcopy";
-import {IComponentInfo, IDataConfig} from '@/types/common'
+import { computed, defineComponent, PropType } from 'vue'
+import deepcopy from 'deepcopy'
+import { IComponentInfo, IDataConfig } from '@/types/common'
 import { componentList } from '@/hooks/registerComponent'
 
 import './index.scss'
-import dragMenu from "@/hooks/dragMenu";
+import dragMenu from '@/hooks/dragMenu'
 
 export default defineComponent({
   name: 'left',
@@ -30,13 +30,18 @@ export default defineComponent({
     })
 
     // 获取绑定事件
-    const {dragStart, dragEnd} = dragMenu(data)
+    const { dragStart, dragEnd } = dragMenu(data)
 
     return () => (
       <div class="left">
         <ul class="left-ul">
           {compList.map((item) => (
-            <li class="left-ul-li" draggable = "true" onDragstart = {() => dragStart(item)} onDragend = {dragEnd}>
+            <li
+              class="left-ul-li"
+              draggable="true"
+              onDragstart={() => dragStart(item)}
+              onDragend={dragEnd}
+            >
               <span class="flagLabel">{item.label}</span>
               {item.preview()}
             </li>

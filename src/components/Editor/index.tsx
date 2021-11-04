@@ -1,7 +1,7 @@
-import {computed, defineComponent, onMounted, PropType} from 'vue'
+import { computed, defineComponent, onMounted, PropType } from 'vue'
 import { IDataConfig } from '@/types/common'
 import EditorBlock from '@/components/Editor/editor-block'
-import {editorCanvas, quoteValues} from '@/utils/constant'
+import { editorCanvas, quoteValues } from '@/utils/constant'
 
 import './index.scss'
 
