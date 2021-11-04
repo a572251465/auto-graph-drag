@@ -5,6 +5,10 @@
 
   &-canvas {
     position: relative;
+    background-image: url(~@/assets/images/grid.png);
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    margin: 0 auto;
   }
 }
 

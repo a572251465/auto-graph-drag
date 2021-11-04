@@ -1,6 +1,6 @@
 import { computed, defineComponent, PropType } from 'vue'
-import {IBlockItem, IComponentInfo} from '@/types/common'
-import {componentMap} from "@/hooks/registerComponent";
+import { IBlockItem, IComponentInfo } from '@/types/common'
+import { componentMap } from '@/hooks/registerComponent'
 
 import './index.scss'
 
@@ -25,7 +25,9 @@ export default defineComponent({
     // 指定渲染的组件
     const compMap: Record<string, IComponentInfo> = componentMap
     const componentInfo: IComponentInfo = compMap[props.block.key]
-    const render = Reflect.has(componentInfo, 'render') ? compMap[props.block.key].render() : `暂无次组件_${componentInfo.label}`
+    const render = Reflect.has(componentInfo, 'render')
+      ? compMap[props.block.key].render()
+      : `暂无次组件_${componentInfo.label}`
 
     return () => (
       <div class="block-item" style={computedStyles.value}>

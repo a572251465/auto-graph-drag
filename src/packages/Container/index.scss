@@ -1,6 +1,5 @@
 .container {
   &-left {
-    background: yellow;
     position: fixed;
     left: 10px;
     width: 270px;
@@ -27,8 +26,11 @@
   }
 
   &-editor {
-    background: #eeeeee;
+    background-image: url(~@/assets/images/grid.png);
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
     position: fixed;
+    border: 1px solid #eeeeee;
     top: 100px;
     left: 290px;
     right: 290px;

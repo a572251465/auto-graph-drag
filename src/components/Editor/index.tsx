@@ -1,26 +1,35 @@
-import { computed, defineComponent, inject } from 'vue'
+import {computed, defineComponent, onMounted, PropType} from 'vue'
 import { IDataConfig } from '@/types/common'
 import EditorBlock from '@/components/Editor/editor-block'
+import {editorCanvas, quoteValues} from '@/utils/constant'
 
 import './index.scss'
 
 export default defineComponent({
   name: 'editor',
-  setup() {
-    // 进行内容注入
-    const injectData: { dataConfig: IDataConfig } | undefined =
-      inject<{ dataConfig: IDataConfig }>('dataConfig')
-
+  props: {
+    modelValue: {
+      type: Object as PropType<IDataConfig>,
+      required: true
+    }
+  },
+  setup(props) {
     const computedStyles = computed(() => ({
-      width: `${injectData?.dataConfig.container.width}px`,
-      height: `${injectData?.dataConfig.container.height}px`
+      width: `${props.modelValue.container.width}px`,
+      height: `${props.modelValue.container.height}px`
     }))
+
+    // 组件被加载钩子
+    onMounted(() => {
+      // 赋值画布元素
+      quoteValues[editorCanvas] = document.querySelector('.editor-canvas')
+    })
 
     return () => (
       <div>
         <div class="editor">
           <div class="editor-canvas" style={computedStyles.value}>
-            {injectData?.dataConfig.blocks.map((item) => (
+            {props.modelValue.blocks.map((item) => (
               <EditorBlock block={item} />
             ))}
           </div>

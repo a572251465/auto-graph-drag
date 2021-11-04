@@ -17,7 +17,10 @@ module.exports = {
     'no-debugger': 'off',
     'import/extensions': 'off',
     '@typescript-eslint/no-var-requires': 'off',
-    'import/no-unresolved': 'off'
+    'import/no-unresolved': 'off',
+    'no-param-reassign': 'off',
+    'func-names': 'off',
+    '@typescript-eslint/explicit-module-boundary-types': 'off'
   },
   settings: {
     'import/resolver': {
