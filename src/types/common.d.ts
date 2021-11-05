@@ -6,6 +6,7 @@ export interface IBlockItem {
   key: string
   isCenter: boolean
   zIndex: number
+  id: number
 }
 
 export interface IDataConfig {

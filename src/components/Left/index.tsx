@@ -1,4 +1,4 @@
-import {computed, defineComponent, PropType, ref, watch} from 'vue'
+import { computed, defineComponent, PropType, ref, watch } from 'vue'
 import deepcopy from 'deepcopy'
 import { IComponentInfo, IDataConfig } from '@/types/common'
 import { componentList } from '@/hooks/registerComponent'
@@ -26,15 +26,21 @@ export default defineComponent({
     // 菜单页面的显示
     const menuPageShowFlag = ref<boolean>(false)
 
-    watch(() => props.currentPageShowFlag, (val) => {
-      if (val) return
+    watch(
+      () => props.currentPageShowFlag,
+      (val) => {
+        if (val) return
 
-      menuPageShowFlag.value = val
-    })
+        menuPageShowFlag.value = val
+      }
+    )
 
     // 点击显示菜单页面
     const menuPageHandle = () => {
-      ctx.emit('show-menu-page', (menuPageShowFlag.value = !menuPageShowFlag.value))
+      ctx.emit(
+        'show-menu-page',
+        (menuPageShowFlag.value = !menuPageShowFlag.value)
+      )
     }
 
     // 监听数据变化
@@ -53,7 +59,7 @@ export default defineComponent({
     return () => (
       <div class="left">
         <div class="left-flags">
-          <img src={menuImg} alt="点击设置" onClick = {menuPageHandle} />
+          <img src={menuImg} alt="点击设置" onClick={menuPageHandle} />
         </div>
         <ul class="left-ul">
           {compList.map((item) => (

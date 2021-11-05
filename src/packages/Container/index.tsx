@@ -1,4 +1,4 @@
-import {defineComponent, reactive} from 'vue'
+import { defineComponent, reactive } from 'vue'
 import Left from '@/components/Left/index'
 import Right from '@/components/Right/index'
 import Top from '@/components/Top/index'
@@ -18,7 +18,9 @@ export default defineComponent({
     Editor
   },
   setup() {
-    const state = reactive<{ data: IDataConfig, currentPageShowFlag: boolean }>({ data: dataConfig, currentPageShowFlag: false })
+    const state = reactive<{ data: IDataConfig; currentPageShowFlag: boolean }>(
+      { data: dataConfig, currentPageShowFlag: false }
+    )
 
     /**
      * @author lihh
@@ -31,12 +33,12 @@ export default defineComponent({
 
     return () => (
       <div class="container">
-        <Menu v-model = {state.currentPageShowFlag} />
+        <Menu v-model={state.currentPageShowFlag} />
         <Left
           class="container-left"
           modelValue={state.data}
-          currentPageShowFlag = {state.currentPageShowFlag}
-          {...{onShowMenuPage: showMenuPage}}
+          currentPageShowFlag={state.currentPageShowFlag}
+          {...{ onShowMenuPage: showMenuPage }}
           v-model={state.data}
         />
         <Right class="container-right" />

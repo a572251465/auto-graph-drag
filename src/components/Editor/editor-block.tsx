@@ -36,10 +36,7 @@ export default defineComponent({
       if (props.block.isCenter) return
 
       if (blockRef.value) {
-        const { offsetWidth, offsetHeight } = blockRef.value
-        blockRef.value.style.left = `${props.block.left - +offsetWidth / 2}px`
-        blockRef.value.style.top = `${props.block.top - +offsetHeight / 2}px`
-        // 注：重新设定位置后，也可以不设置状态，因为组件不会重复渲染
+
       }
     })
 
