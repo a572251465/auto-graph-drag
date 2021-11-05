@@ -3,8 +3,8 @@ import { IBlockItem, IComponentInfo } from '@/types/common'
 import { componentMap } from '@/hooks/registerComponent'
 
 import './index.scss'
-import emits from "@/utils/emits";
-import {editDataConfig} from "@/utils/constant";
+import emits from '@/utils/emits'
+import { editDataConfig } from '@/utils/constant'
 
 export default defineComponent({
   name: 'editor-block',
@@ -38,18 +38,41 @@ export default defineComponent({
       if (props.block.isCenter) return
 
       if (blockRef.value) {
-        const {offsetWidth, offsetHeight} = blockRef.value
+        const { offsetWidth, offsetHeight } = blockRef.value
 
         emits.emit(editDataConfig, props.block.id, {
-          left:  props.block.left - (offsetWidth / 2),
-          top: props.block.top - (offsetHeight / 2),
+          left: props.block.left - offsetWidth / 2,
+          top: props.block.top - offsetHeight / 2,
           isCenter: true
         })
       }
     })
 
+    // 元素焦点事件
+    const elementFocusHandle = function elementFocusHandle(e: MouseEvent) {
+      e.stopPropagation()
+      e.preventDefault()
+
+      const { id } = props.block
+
+      // 是否按住shift key
+      if (e.shiftKey) {
+        emits.emit(editDataConfig, id, { isFocus: !props.block.isFocus })
+        return
+      }
+
+      // 修改状态
+      emits.emit(editDataConfig, -1, { isFocus: false })
+      emits.emit(editDataConfig, id, { isFocus: !props.block.isFocus })
+    }
+
     return () => (
-      <div class="block-item" style={computedStyles.value} ref={blockRef}>
+      <div
+        class={props.block.isFocus ? 'block-item is-focus' : 'block-item'}
+        onMousedown={(e) => elementFocusHandle(e)}
+        style={computedStyles.value}
+        ref={blockRef}
+      >
         {render}
       </div>
     )

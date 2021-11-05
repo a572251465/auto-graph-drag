@@ -12,6 +12,23 @@
   }
 }
 
+.is-focus {
+  &::after {
+    border: 1px dashed green;
+  }
+}
+
 .block-item {
   position: absolute;
+
+  &::after {
+    content: '';
+    position: absolute;
+    background: transparent;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    z-index: 100;
+  }
 }

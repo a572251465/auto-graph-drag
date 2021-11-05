@@ -44,6 +44,7 @@ const dragMenu = function (data: WritableComputedRef<IDataConfig>) {
           isCenter: false,
           top,
           zIndex: 1,
+          isFocus: false,
           id: +new Date()
         }
       ]

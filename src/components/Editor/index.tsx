@@ -1,9 +1,10 @@
 import { computed, defineComponent, onMounted, PropType } from 'vue'
 import { IDataConfig } from '@/types/common'
 import EditorBlock from '@/components/Editor/editor-block'
-import { editorCanvas, quoteValues } from '@/utils/constant'
+import { editDataConfig, editorCanvas, quoteValues } from '@/utils/constant'
 
 import './index.scss'
+import emits from '@/utils/emits'
 
 export default defineComponent({
   name: 'editor',
@@ -25,10 +26,19 @@ export default defineComponent({
       quoteValues[editorCanvas] = document.querySelector('.editor-canvas')
     })
 
+    // 鼠标点击事件 恢复选中状态
+    const clickHandle = function clickHandle() {
+      emits.emit(editDataConfig, -1, { isFocus: false })
+    }
+
     return () => (
       <div>
         <div class="editor">
-          <div class="editor-canvas" style={computedStyles.value}>
+          <div
+            class="editor-canvas"
+            onMousedown={clickHandle}
+            style={computedStyles.value}
+          >
             {props.modelValue.blocks.map((item) => (
               <EditorBlock block={item} />
             ))}

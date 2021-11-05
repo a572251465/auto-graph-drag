@@ -7,11 +7,11 @@ import Menu from '@/components/Menu/index'
 import dataConfig from '@/data-config'
 
 import './index.scss'
-import {IBlockItem, IDataConfig} from '@/types/common'
+import {IDataConfig} from '@/types/common'
 import emits from "@/utils/emits";
 import {editDataConfig} from "@/utils/constant";
 
-type IValues = Partial<{left: number, top: number, isCenter: boolean}>
+type IValues = Partial<{left: number, top: number, isCenter: boolean, isFocus: boolean}>
 
 
 export default defineComponent({
@@ -34,6 +34,12 @@ export default defineComponent({
      * @param value 修改的值
      */
     const editDataConfigHandle = function editDataConfigHandle(id: number, value: IValues) {
+      // 修改所有的
+      if (id === -1) {
+        state.data.blocks = state.data.blocks.map(item => ({...item, ...value}))
+        return;
+      }
+
       const index: number = state.data.blocks.findIndex(item => item.id === id)
       if (index === -1) return
 
