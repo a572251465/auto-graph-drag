@@ -3,6 +3,8 @@ import { IBlockItem, IComponentInfo } from '@/types/common'
 import { componentMap } from '@/hooks/registerComponent'
 
 import './index.scss'
+import emits from "@/utils/emits";
+import {editDataConfig} from "@/utils/constant";
 
 export default defineComponent({
   name: 'editor-block',
@@ -36,7 +38,13 @@ export default defineComponent({
       if (props.block.isCenter) return
 
       if (blockRef.value) {
+        const {offsetWidth, offsetHeight} = blockRef.value
 
+        emits.emit(editDataConfig, props.block.id, {
+          left:  props.block.left - (offsetWidth / 2),
+          top: props.block.top - (offsetHeight / 2),
+          isCenter: true
+        })
       }
     })
 

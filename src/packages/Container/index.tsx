@@ -7,7 +7,12 @@ import Menu from '@/components/Menu/index'
 import dataConfig from '@/data-config'
 
 import './index.scss'
-import { IDataConfig } from '@/types/common'
+import {IBlockItem, IDataConfig} from '@/types/common'
+import emits from "@/utils/emits";
+import {editDataConfig} from "@/utils/constant";
+
+type IValues = Partial<{left: number, top: number, isCenter: boolean}>
+
 
 export default defineComponent({
   name: 'container',
@@ -21,6 +26,23 @@ export default defineComponent({
     const state = reactive<{ data: IDataConfig; currentPageShowFlag: boolean }>(
       { data: dataConfig, currentPageShowFlag: false }
     )
+
+    /**
+     * @author lihh
+     * @description 编辑配置菜单
+     * @param id 查询id
+     * @param value 修改的值
+     */
+    const editDataConfigHandle = function editDataConfigHandle(id: number, value: IValues) {
+      const index: number = state.data.blocks.findIndex(item => item.id === id)
+      if (index === -1) return
+
+      state.data.blocks[index] = {
+        ...state.data.blocks[index],
+        ...value
+      }
+    }
+    emits.on(editDataConfig, editDataConfigHandle)
 
     /**
      * @author lihh
