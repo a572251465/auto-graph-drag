@@ -1,10 +1,11 @@
 import { computed, defineComponent, onMounted, PropType, ref } from 'vue'
-import { IBlockItem, IComponentInfo } from '@/types/common'
+import { IBlockItem, IComponentInfo, IDataConfig } from '@/types/common'
 import { componentMap } from '@/hooks/registerComponent'
 
 import './index.scss'
 import emits from '@/utils/emits'
 import { editDataConfig } from '@/utils/constant'
+import useElementFocus from '@/hooks/useElementFocus'
 
 export default defineComponent({
   name: 'editor-block',
@@ -14,7 +15,8 @@ export default defineComponent({
       required: true
     }
   },
-  setup(props) {
+  emits: ['mouse-down'],
+  setup(props, ctx) {
     const blockRef = ref<HTMLDivElement | null>(null)
 
     // 设置样式的计算属性
@@ -48,23 +50,10 @@ export default defineComponent({
       }
     })
 
-    // 元素焦点事件
-    const elementFocusHandle = function elementFocusHandle(e: MouseEvent) {
-      e.stopPropagation()
-      e.preventDefault()
-
-      const { id } = props.block
-
-      // 是否按住shift key
-      if (e.shiftKey) {
-        emits.emit(editDataConfig, id, { isFocus: !props.block.isFocus })
-        return
-      }
-
-      // 修改状态
-      emits.emit(editDataConfig, -1, { isFocus: false })
-      emits.emit(editDataConfig, id, { isFocus: !props.block.isFocus })
-    }
+    // 鼠标按下事件
+    const { elementFocusHandle } = useElementFocus(props, (e: MouseEvent) => {
+      ctx.emit('mouse-down', e)
+    })
 
     return () => (
       <div

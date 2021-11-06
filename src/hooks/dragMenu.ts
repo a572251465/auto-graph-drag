@@ -3,7 +3,7 @@
  * @description 表示拖拽菜单事件
  */
 import { WritableComputedRef } from 'vue'
-import on, { IFn } from '@/hooks/dom'
+import { IFn, on } from '@/hooks/dom'
 import { editorCanvas, quoteValues } from '@/utils/constant'
 import { IComponentInfo, IDataConfig } from '@/types/common'
 

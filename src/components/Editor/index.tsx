@@ -1,10 +1,12 @@
-import { computed, defineComponent, onMounted, PropType } from 'vue'
+import {computed, defineComponent, onMounted, PropType, watch} from 'vue'
 import { IDataConfig } from '@/types/common'
 import EditorBlock from '@/components/Editor/editor-block'
 import { editDataConfig, editorCanvas, quoteValues } from '@/utils/constant'
 
 import './index.scss'
 import emits from '@/utils/emits'
+import useFocus from "@/hooks/useFocus";
+import useElementMove from "@/hooks/useElementMove";
 
 export default defineComponent({
   name: 'editor',
@@ -14,11 +16,17 @@ export default defineComponent({
       required: true
     }
   },
+
   setup(props) {
+    const data = computed(() => props.modelValue)
+
     const computedStyles = computed(() => ({
-      width: `${props.modelValue.container.width}px`,
-      height: `${props.modelValue.container.height}px`
+      width: `${data.value.container.width}px`,
+      height: `${data.value.container.height}px`
     }))
+
+    // 获取光标选中的元素
+    const focusData = useFocus(props)
 
     // 组件被加载钩子
     onMounted(() => {
@@ -31,6 +39,9 @@ export default defineComponent({
       emits.emit(editDataConfig, -1, { isFocus: false })
     }
 
+    // 鼠标移动事件
+    const mouseDownHandle = useElementMove(focusData.focus)
+
     return () => (
       <div>
         <div class="editor">
@@ -39,8 +50,8 @@ export default defineComponent({
             onMousedown={clickHandle}
             style={computedStyles.value}
           >
-            {props.modelValue.blocks.map((item) => (
-              <EditorBlock block={item} />
+            {data.value.blocks.map((item) => (
+              <EditorBlock block={item} {...{ onMouseDown: mouseDownHandle }} />
             ))}
           </div>
         </div>

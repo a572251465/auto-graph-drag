@@ -12,7 +12,8 @@ const dataConfig: IDataConfig = {
       isCenter: true,
       top: 100,
       zIndex: 1,
-      id: 0
+      id: 0,
+      isFocus: false
     },
     {
       key: 'button',
@@ -20,7 +21,8 @@ const dataConfig: IDataConfig = {
       isCenter: true,
       top: 0,
       zIndex: 1,
-      id: 1
+      id: 1,
+      isFocus: false
     },
     {
       key: 'input',
@@ -28,7 +30,8 @@ const dataConfig: IDataConfig = {
       isCenter: true,
       top: 200,
       zIndex: 1,
-      id: 2
+      id: 2,
+      isFocus: false
     }
   ]
 }

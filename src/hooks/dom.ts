@@ -12,7 +12,7 @@ const eventStack = new WeakMap()
  * @param handle 绑定的事件
  */
 const on = function on(
-  el: HTMLDivElement,
+  el: HTMLDivElement | Document,
   eventName: string,
   // eslint-disable-next-line
   handle: (...args: any[]) => void
@@ -29,4 +29,22 @@ const on = function on(
   }
 }
 
-export default on
+/**
+ * @author lihh
+ * @description 元素解绑事件
+ * @param el 元素
+ * @param eventName 事件名称
+ * @param handle 事件本身
+ */
+const off = function off(
+  el: HTMLDivElement | Document,
+  eventName: string,
+  handle: (...args: any[]) => void
+) {
+  if (eventStack.get(handle) !== eventName) return
+
+  eventStack.delete(handle)
+  el.removeEventListener(eventName, handle, false)
+}
+
+export { off, on }

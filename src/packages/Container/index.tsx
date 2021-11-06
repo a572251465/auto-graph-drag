@@ -1,4 +1,4 @@
-import { defineComponent, reactive } from 'vue'
+import {defineComponent, reactive, ref} from 'vue'
 import Left from '@/components/Left/index'
 import Right from '@/components/Right/index'
 import Top from '@/components/Top/index'
@@ -8,11 +8,15 @@ import dataConfig from '@/data-config'
 
 import './index.scss'
 import {IDataConfig} from '@/types/common'
-import emits from "@/utils/emits";
-import {editDataConfig} from "@/utils/constant";
+import emits from '@/utils/emits'
+import { editDataConfig } from '@/utils/constant'
 
-type IValues = Partial<{left: number, top: number, isCenter: boolean, isFocus: boolean}>
-
+type IValues = Partial<{
+  left: number
+  top: number
+  isCenter: boolean
+  isFocus: boolean
+}>
 
 export default defineComponent({
   name: 'container',
@@ -23,9 +27,8 @@ export default defineComponent({
     Editor
   },
   setup() {
-    const state = reactive<{ data: IDataConfig; currentPageShowFlag: boolean }>(
-      { data: dataConfig, currentPageShowFlag: false }
-    )
+    const state = reactive<{ data: IDataConfig }>({ data: dataConfig })
+    const currentPageShowFlag = ref<boolean>(false)
 
     /**
      * @author lihh
@@ -33,14 +36,22 @@ export default defineComponent({
      * @param id 查询id
      * @param value 修改的值
      */
-    const editDataConfigHandle = function editDataConfigHandle(id: number, value: IValues) {
+    const editDataConfigHandle = function editDataConfigHandle(
+      id: number,
+      value: IValues
+    ) {
       // 修改所有的
       if (id === -1) {
-        state.data.blocks = state.data.blocks.map(item => ({...item, ...value}))
-        return;
+        state.data.blocks = state.data.blocks.map((item) => ({
+          ...item,
+          ...value
+        }))
+        return
       }
 
-      const index: number = state.data.blocks.findIndex(item => item.id === id)
+      const index: number = state.data.blocks.findIndex(
+        (item) => item.id === id
+      )
       if (index === -1) return
 
       state.data.blocks[index] = {
@@ -56,16 +67,16 @@ export default defineComponent({
      * @param flag 显示的菜单页面的标识
      */
     const showMenuPage = function showMenuPage(flag: boolean) {
-      state.currentPageShowFlag = flag
+      currentPageShowFlag.value = flag
     }
 
     return () => (
       <div class="container">
-        <Menu v-model={state.currentPageShowFlag} />
+        <Menu v-model={currentPageShowFlag.value} />
         <Left
           class="container-left"
           modelValue={state.data}
-          currentPageShowFlag={state.currentPageShowFlag}
+          currentPageShowFlag={currentPageShowFlag.value}
           {...{ onShowMenuPage: showMenuPage }}
           v-model={state.data}
         />

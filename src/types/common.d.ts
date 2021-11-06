@@ -7,7 +7,7 @@ export interface IBlockItem {
   isCenter: boolean
   zIndex: number
   id: number
-  isFocus?: boolean
+  isFocus: boolean
 }
 
 export interface IDataConfig {

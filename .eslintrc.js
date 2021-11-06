@@ -20,6 +20,7 @@ module.exports = {
     'import/no-unresolved': 'off',
     'no-param-reassign': 'off',
     'func-names': 'off',
+    'no-shadow': 'off',
     '@typescript-eslint/explicit-module-boundary-types': 'off'
   },
   settings: {
