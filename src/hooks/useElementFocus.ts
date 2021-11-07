@@ -27,7 +27,7 @@ const useElementFocus = function elementFocusHandle(
     const { id } = props.block
 
     // 是否按住shift key
-    if (e.shiftKey) {
+    if (e.shiftKey && !props.block.isFocus) {
       emits.emit(editDataConfig, id, { isFocus: !props.block.isFocus })
 
       // 触发事件
@@ -35,9 +35,11 @@ const useElementFocus = function elementFocusHandle(
       return
     }
 
-    // 修改状态
-    emits.emit(editDataConfig, -1, { isFocus: false })
-    emits.emit(editDataConfig, id, { isFocus: !props.block.isFocus })
+    if (!props.block.isFocus) {
+      // 修改状态
+      emits.emit(editDataConfig, -1, { isFocus: false })
+      emits.emit(editDataConfig, id, { isFocus: true })
+    }
 
     // 触发事件
     Promise.resolve().then(() => callback(e))

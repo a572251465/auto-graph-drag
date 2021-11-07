@@ -36,6 +36,10 @@ export default defineComponent({
 
     // 鼠标点击事件 恢复选中状态
     const clickHandle = function clickHandle() {
+      // 判断是否有被选中的
+      const checked = data.value.blocks.some(item => item.isFocus)
+      if (!checked) return
+
       emits.emit(editDataConfig, -1, { isFocus: false })
     }
 
