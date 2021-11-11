@@ -1,4 +1,4 @@
-import {computed, defineComponent, onMounted, PropType, watch} from 'vue'
+import {computed, defineComponent, onMounted, PropType} from 'vue'
 import { IDataConfig } from '@/types/common'
 import EditorBlock from '@/components/Editor/editor-block'
 import { editDataConfig, editorCanvas, quoteValues } from '@/utils/constant'
@@ -6,7 +6,7 @@ import { editDataConfig, editorCanvas, quoteValues } from '@/utils/constant'
 import './index.scss'
 import emits from '@/utils/emits'
 import useFocus from "@/hooks/useFocus";
-import useElementMove from "@/hooks/useElementMove";
+import {useElementMove, markLine} from "@/hooks/useElementMove";
 
 export default defineComponent({
   name: 'editor',
@@ -44,7 +44,7 @@ export default defineComponent({
     }
 
     // 鼠标移动事件
-    const mouseDownHandle = useElementMove(focusData.focus)
+    const mouseDownHandle = useElementMove(focusData.focus, focusData.unFocus, props.modelValue)
 
     return () => (
       <div>
@@ -57,6 +57,9 @@ export default defineComponent({
             {data.value.blocks.map((item) => (
               <EditorBlock block={item} {...{ onMouseDown: mouseDownHandle }} />
             ))}
+
+          {markLine.x !== null && <div class="line-x" style={{ left: `${markLine.x  }px` }}></div>}
+          {markLine.y !== null && <div class="line-y" style={{ top: `${markLine.y  }px` }}></div>}
           </div>
         </div>
       </div>

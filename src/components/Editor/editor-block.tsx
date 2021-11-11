@@ -1,10 +1,10 @@
 import { computed, defineComponent, onMounted, PropType, ref } from 'vue'
-import { IBlockItem, IComponentInfo, IDataConfig } from '@/types/common'
+import { IBlockItem, IComponentInfo } from '@/types/common'
 import { componentMap } from '@/hooks/registerComponent'
 
 import './index.scss'
 import emits from '@/utils/emits'
-import { editDataConfig } from '@/utils/constant'
+import {editDataConfig, quoteValues} from '@/utils/constant'
 import useElementFocus from '@/hooks/useElementFocus'
 
 export default defineComponent({
@@ -37,21 +37,31 @@ export default defineComponent({
 
     // 组件加载钩子函数
     onMounted(() => {
-      if (props.block.isCenter) return
+      if (!blockRef.value) return
+      const { offsetWidth, offsetHeight } = blockRef.value
 
-      if (blockRef.value) {
-        const { offsetWidth, offsetHeight } = blockRef.value
-
+      if (props.block.isInit) {
         emits.emit(editDataConfig, props.block.id, {
-          left: props.block.left - offsetWidth / 2,
-          top: props.block.top - offsetHeight / 2,
-          isCenter: true
+          width: offsetWidth,
+          height: offsetHeight
         })
+        return
       }
+
+      emits.emit(editDataConfig, props.block.id, {
+        left: props.block.left - offsetWidth / 2,
+        top: props.block.top - offsetHeight / 2,
+        isCenter: true,
+        width: offsetWidth,
+        height: offsetHeight
+      })
     })
 
     // 鼠标按下事件
     const { elementFocusHandle } = useElementFocus(props, (e: MouseEvent) => {
+      // 获取最后一个点击的元素
+      quoteValues.lastClickElement = props.block
+      
       ctx.emit('mouse-down', e)
     })
 

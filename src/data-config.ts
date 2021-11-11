@@ -13,7 +13,8 @@ const dataConfig: IDataConfig = {
       top: 100,
       zIndex: 1,
       id: 0,
-      isFocus: false
+      isFocus: false,
+      isInit: true
     },
     {
       key: 'button',
@@ -22,7 +23,8 @@ const dataConfig: IDataConfig = {
       top: 0,
       zIndex: 1,
       id: 1,
-      isFocus: false
+      isFocus: false,
+      isInit: true
     },
     {
       key: 'input',
@@ -31,7 +33,8 @@ const dataConfig: IDataConfig = {
       top: 200,
       zIndex: 1,
       id: 2,
-      isFocus: false
+      isFocus: false,
+      isInit: true
     }
   ]
 }

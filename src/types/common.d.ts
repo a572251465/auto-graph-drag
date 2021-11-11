@@ -8,6 +8,7 @@ export interface IBlockItem {
   zIndex: number
   id: number
   isFocus: boolean
+  isInit?: boolean
 }
 
 export interface IDataConfig {

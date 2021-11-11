@@ -15,7 +15,9 @@ type IValues = Partial<{
   left: number
   top: number
   isCenter: boolean
-  isFocus: boolean
+  isFocus: boolean,
+  width: number,
+  height: number
 }>
 
 export default defineComponent({
